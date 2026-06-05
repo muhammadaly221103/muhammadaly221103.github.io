@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio – Virtual Assistant & Data Entry</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --bg2: #f2f0ec;
+      --text: #1a1916;
+      --muted: #7a7870;
+      --accent: #2d6a4f;
+      --accent2: #b7d5c8;
+      --border: #e0ded9;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(250,249,247,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 60px;
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.5px; color: var(--text); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    #hero {
+      min-height: 100vh; padding: 120px 5% 80px;
+      display: flex; align-items: center;
+    }
+    .hero-inner { max-width: 680px; }
+    .badge {
+      display: inline-block;
+      background: var(--accent2); color: var(--accent);
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 20px; margin-bottom: 28px;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 18px; color: var(--muted); max-width: 520px; margin-bottom: 40px; font-weight: 300; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      padding: 13px 28px; border-radius: 8px; font-size: 15px; font-weight: 500;
+      text-decoration: none; display: inline-block; transition: all .2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--text); color: var(--white); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--text); }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 64px;
+      padding-top: 40px; border-top: 1px solid var(--border);
+    }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--text); }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    section { padding: 100px 5%; }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 44px); letter-spacing: -1px;
+      line-height: 1.15; margin-bottom: 24px;
+    }
+    .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 60px; font-weight: 300; font-size: 17px; }
+
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-photo {
+      width: 100%; aspect-ratio: 4/5; background: var(--accent2);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 72px; color: var(--accent);
+      letter-spacing: -2px;
+    }
+    .about-content { padding-top: 8px; }
+    .info-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+    .info-icon { width: 36px; height: 36px; background: var(--accent2); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+    .info-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .info-val { font-size: 15px; font-weight: 500; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .service-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px 28px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .service-icon { font-size: 28px; margin-bottom: 20px; }
+    .service-card h3 { font-size: 17px; font-weight: 500; margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tag {
+      background: var(--bg2); color: var(--muted);
+      font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500;
+    }
+
+    #skills { background: var(--bg2); }
+    .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .skill-item {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 22px;
+    }
+    .skill-name { font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+    .skill-bar { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--accent); border-radius: 4px; }
+    .skill-pct { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .work-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; transition: transform .2s;
+    }
+    .work-card:hover { transform: translateY(-4px); }
+    .work-img {
+      height: 180px; background: var(--accent2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+    }
+    .work-body { padding: 24px; }
+    .work-body h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+    .work-body p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .work-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .work-type { font-size: 11px; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    #testimonials { background: var(--bg2); }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .testi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+    }
+    .testi-stars { color: #e9a32a; font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-text { font-size: 14px; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent2); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: var(--accent);
+    }
+    .testi-name { font-size: 14px; font-weight: 500; }
+    .testi-role { font-size: 12px; color: var(--muted); }
+
+    #contact { text-align: center; }
+    .contact-box {
+      max-width: 560px; margin: 0 auto;
+      background: var(--text); color: var(--white);
+      border-radius: 24px; padding: 64px 48px;
+    }
+    .contact-box h2 { font-family: 'DM Serif Display', serif; color: var(--white); letter-spacing: -1px; }
+    .contact-box p { color: rgba(255,255,255,0.6); margin-bottom: 36px; font-weight: 300; }
+    .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .contact-btn {
+      padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all .2s; display: flex; align-items: center; gap: 8px;
+    }
+    .contact-btn-light { background: var(--white); color: var(--text); }
+    .contact-btn-light:hover { background: var(--accent2); }
+    .contact-btn-ghost { background: rgba(255,255,255,0.1); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+    .contact-btn-ghost:hover { background: rgba(255,255,255,0.18); }
+
+    footer {
+      text-align: center; padding: 32px 5%;
+      border-top: 1px solid var(--border); color: var(--muted); font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo { aspect-ratio: 3/2; font-size: 48px; }
+      .hero-stats { gap: 28px; }
+      .contact-box { padding: 40px 24px; }
+      nav { padding: 0 4%; }
+      .nav-links { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Your Name.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-inner">
+      <span class="badge">✦ Open to Remote Opportunities</span>
+      <h1>Experienced Admin<br>Ready to Transition<br>into <em>Remote Work</em></h1>
+      <p class="hero-desc">3 years as a Warehouse Administrator — skilled in accurate data management, organized documentation, and efficient daily operations. Now bringing these strengths to the remote world.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="#work" class="btn btn-outline">View Experience</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Admin Experience</div>
+        </div>
+        <div>
+          <div class="stat-num">Detail</div>
+          <div class="stat-label">Oriented & Accurate</div>
+        </div>
+        <div>
+          <div class="stat-num">Ready</div>
+          <div class="stat-label">For Remote Work</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-grid">
+      <img src="profile.jpeg" alt="profile" style="width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:16px;"><div class="about-photo"></div>
+      <div class="about-content">
+        <p class="section-label">About Me</p>
+        <h2>Detail-Oriented & Highly Organized Professional</h2>
+        <p style="color: var(--muted); font-weight:300; font-size:16px; margin-bottom:32px;">
+          I have 3 years of experience as a Warehouse Administrator — managing inventory data, shipping documents, and daily operational reports with high accuracy.
+          I am now transitioning into remote work, bringing my well-honed administrative and data management skills to help businesses run smoothly from anywhere.
+        </p>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Indonesia (Open to Remote)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🏭</div>
+          <div>
+            <div class="info-label">Background</div>
+            <div class="info-val">3 Years Warehouse Admin</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Availability</div>
+            <div class="info-val">Full Time / Part Time Remote</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Languages</div>
+            <div class="info-val">Indonesian (Native), English (Basic)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <p class="section-label">Services</p>
+    <h2>What I Can Do for You</h2>
+    <p class="section-desc">Professional services designed to help your business run more efficiently.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Data Entry & Data Processing</h3>
+        <p>Accurate data input into spreadsheets, databases, or CRM systems with high speed and precision.</p>
+        <div class="tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Google Sheets</span>
+          <span class="tag">CRM</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🗂️</div>
+        <h3>Administrative Management</h3>
+        <p>Email management, scheduling, document filing, and daily task coordination — done efficiently and on time.</p>
+        <div class="tags">
+          <span class="tag">Gmail</span>
+          <span class="tag">Google Drive</span>
+          <span class="tag">Notion</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>Research & Data Compilation</h3>
+        <p>Online research, information gathering, and concise report writing tailored to your business needs.</p>
+        <div class="tags">
+          <span class="tag">Web Research</span>
+          <span class="tag">Data Cleaning</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Social Media Management</h3>
+        <p>Content scheduling, engagement monitoring, and performance reporting for your business accounts.</p>
+        <div class="tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">Buffer</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📝</div>
+        <h3>Document Preparation</h3>
+        <p>Creating polished documents, presentations, reports, and templates ready for professional use.</p>
+        <div class="tags">
+          <span class="tag">Word</span>
+          <span class="tag">PowerPoint</span>
+          <span class="tag">Canva</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <h3>Customer Support</h3>
+        <p>Responding to customer inquiries via chat or email in a professional, friendly, and solution-focused manner.</p>
+        <div class="tags">
+          <span class="tag">Live Chat</span>
+          <span class="tag">Email Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="section-label">Skills</p>
+    <h2>Tools & Abilities</h2>
+    <p class="section-desc">Tools and platforms I use to deliver professional remote work.</p>
+    <div class="skill-grid">
+      <div class="skill-item">
+        <div class="skill-name">Microsoft Excel / Google Sheets</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Google Workspace</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Microsoft Office</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Canva</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Notion / Trello</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+        <div class="skill-pct">Intermediate</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Slack / Zoom</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">CRM (HubSpot / Airtable)</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        <div class="skill-pct">Intermediate</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Email Management</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+        <div class="skill-pct">Advanced</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <p class="section-label">Experience</p>
+    <h2>Work I Have Done</h2>
+    <p class="section-desc">A selection of responsibilities and accomplishments from my time as a Warehouse Administrator.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-img">📦</div>
+        <div class="work-body">
+          <h3>Warehouse Inventory Data Management</h3>
+          <p>Managed and updated daily inbound/outbound stock data using Excel. Ensured accuracy between physical stock and system records.</p>
+          <div class="work-meta">
+            <span class="work-type">Data Entry</span>
+            <div class="tags"><span class="tag">Excel</span><span class="tag">Stock Opname</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-img">📋</div>
+        <div class="work-body">
+          <h3>Shipping Document Administration</h3>
+          <p>Prepared and systematically filed delivery orders, invoices, and purchase orders. Streamlined document verification for faster shipping processes.</p>
+          <div class="work-meta">
+            <span class="work-type">Administration</span>
+            <div class="tags"><span class="tag">Documents</span><span class="tag">Filing</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-img">📊</div>
+        <div class="work-body">
+          <h3>Monthly Warehouse Operations Report</h3>
+          <p>Produced monthly summaries of goods in/out for management review. Reports were structured in clear, easy-to-read table formats.</p>
+          <div class="work-meta">
+            <span class="work-type">Reporting</span>
+            <div class="tags"><span class="tag">Excel</span><span class="tag">Reporting</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <p class="section-label">Testimonials</p>
+    <h2>What Colleagues Say</h2>
+    <p class="section-desc">Feedback from supervisors and colleagues I have worked with.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Extremely meticulous in managing stock data. Reports were always accurate and delivered on time. A true asset to our warehouse team."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">HW</div>
+          <div>
+            <div class="testi-name">Adi L.</div>
+            <div class="testi-role">Warehouse Head, PT. Soreang Prakarsa Lestari</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Document administration was always neat and easy to retrieve. A great help in keeping our day-to-day operations running smoothly."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DL</div>
+          <div>
+            <div class="testi-name">Fauzi M.</div>
+            <div class="testi-role">Logistics Supervisor, PT. Soreang Prakarsa Lestari</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Disciplined, proactive, and requires minimal supervision. Work is always completed to the standard required without reminders."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AR</div>
+          <div>
+            <div class="testi-name">Ridwan T.</div>
+            <div class="testi-role">Shif Leader, PT. Soreang Prakarsa Lestari</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Ready to Work Together?</h2>
+      <p>Let's discuss your needs. I'm ready to help your business grow.</p>
+      <div class="contact-links">
+        <a href="mailto:muhammadaly221103@gmail.com" class="contact-btn contact-btn-light">✉ Email Me</a>
+        <a href="https://wa.me/6283805864537" class="contact-btn contact-btn-ghost">💬 WhatsApp</a>
+        <a href="www.linkedin.com/in/muhamad-ali-b5620424b" class="contact-btn contact-btn-ghost">🔗 LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Muhamad Ali · Built for a remote career</p>
+  </footer>
+
+</body>
+</html>
